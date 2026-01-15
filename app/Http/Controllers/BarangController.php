@@ -2,38 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\barang;
+use App\Models\barang; // Pastikan huruf besar/kecil model sesuai (Barang atau barang)
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
-    public function index(){
+    public function index() {
         $barang = barang::all();
-    
-    return view('Barang', compact('barang'));
+        return view('barang', compact('barang'));
     }
 
-    public function TambahBarang(Request $request){
-
+    // Ini fungsi yang dicari oleh Route::post('/barang/simpan', [BarangController::class, 'store'])
+    public function store(Request $request) 
+    {
         $request->validate([
-        'NamaProduk' =>  'required|string|max:255',
-        'Katagori' =>  'required|in:makanan,minuman,sembako,bahan masak,frozen food,susu dan olahan, perawatan tubuh, perlengkapan ATK, bat dan kesehatan, lain-lain',
-        'HargaBeli' =>  'required|numeric',
-        'HargaJual' => 'required|numeric',
-        'Stok' => 'required|integer'
+            'NamaProduk' => 'required|string|max:255',
+            'Kategori'   => 'required', // Pastikan spelling 'Kategori' konsisten dengan form
+            'HargaBeli'  => 'required|numeric',
+            'HargaJual'  => 'required|numeric',
+            'Stok'       => 'required|integer'
         ]);
 
-        Barang::create([
-        'NamaProduk' => $request->NamaProduk,
-        'Kategori' => $request->Kategori,
-        'HargaBeli' => $request->HargaBeli,
-        'HargaJual' => $request->HargaJual,
-        'Stok' => $request->Stok   
+        barang::create([
+            'NamaProduk' => $request->NamaProduk,
+            'Kategori'   => $request->Kategori,
+            'HargaBeli'  => $request->HargaBeli,
+            'HargaJual'  => $request->HargaJual,
+            'Stok'       => $request->Stok   
         ]);
 
-        return redirect()->route('Barang')->with('success', 'Barang Berhasil Di Tambahkan');
+        return redirect('/barang')->with('success', 'Barang Berhasil Ditambahkan');
     }
-
-
-    
 }

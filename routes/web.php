@@ -2,27 +2,31 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangController;
+use Illuminate\Support\Facades\Auth;
 
-// 1. Rute untuk halaman Login (Halaman Utama)
+// Halaman Utama / Login
 Route::get('/', function () {
     return view('login');
-});
+})->name('login');
 
-// 2. Rute untuk halaman Dashboard
+// Halaman Register (Ini yang sering terlewat)
+Route::get('/register', function () {
+    return view('register');
+})->name('register');
+
+// Dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');
-});
+})->name('dashboard');
 
-// 3. Rute untuk halaman Barang (Menampilkan data/form)
-Route::get('/barang', function () {
-    // 1. Ambil data dari database (asumsi nama model Anda adalah 'Barang')
-    // Jika belum ada database, biarkan kosong dulu: $barang = [];
-    $barang = [];
-
-    // 2. Kirim variabel ke view agar @foreach bisa membacanya
-    return view('barang', compact('barang'));
-});
-
-// 4. Rute untuk memproses data Barang (Biasanya dari form POST)
-// Pastikan nama function di Controller sudah diisi, misalnya 'store'
+// Halaman Barang
+Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
 Route::post('/barang/simpan', [BarangController::class, 'store'])->name('barang.store');
+
+// Logout (Gunakan POST demi keamanan)
+Route::post('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect()->route('login');
+})->name('logout');

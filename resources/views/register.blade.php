@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kasir User Login</title>
+    <title>Kasir User Registration</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -12,17 +12,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 20px 0;
         }
 
-        .login-card {
+        .register-card {
             background: #ffffff;
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             text-align: center;
         }
 
@@ -30,7 +31,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             gap: 10px;
         }
 
@@ -40,7 +41,7 @@
         }
 
         .header-logo h2 {
-            font-size: 24px;
+            font-size: 22px;
             color: #334155;
             margin: 0;
             font-weight: 600;
@@ -54,22 +55,23 @@
 
         .form-group {
             text-align: left;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
+            margin-bottom: 6px;
+            font-size: 13px;
             color: #475569;
             font-weight: 500;
+            padding-left: 10px;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 12px 20px;
             border: 1px solid #e2e8f0;
-            border-radius: 25px; /* Membuat input lonjong */
+            border-radius: 25px;
             box-sizing: border-box;
             font-size: 14px;
             outline: none;
@@ -77,21 +79,11 @@
         }
 
         .form-group input:focus {
-            border-color: #10b981;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+            border-color: #17a2b8;
+            box-shadow: 0 0 0 3px rgba(23, 162, 184, 0.1);
         }
 
-        .forgot-password {
-            display: block;
-            text-align: right;
-            font-size: 12px;
-            color: #64748b;
-            text-decoration: none;
-            margin-top: -10px;
-            margin-bottom: 25px;
-        }
-
-        .btn-login {
+        .btn-register {
             width: 100%;
             padding: 12px;
             background-color: #17a2b8;
@@ -102,9 +94,10 @@
             font-weight: 600;
             cursor: pointer;
             transition: background 0.3s;
+            margin-top: 15px;
         }
 
-        .btn-login:hover {
+        .btn-register:hover {
             background-color: #138496;
         }
 
@@ -115,7 +108,7 @@
         }
 
         .footer-text a {
-            color: #64748b;
+            color: #17a2b8;
             text-decoration: none;
             font-weight: 600;
         }
@@ -134,38 +127,48 @@
 </head>
 <body>
 
-<div class="login-card">
+<div class="register-card">
     <div class="header-logo">
-        <h2>Kasir User Login</h2>
+        <h2>Kasir Registration</h2>
     </div>
     
     <hr>
 
-<form method="POST" action="dashboard.blade.php">
-        <div class="form-group">
-            <label>Username</label>
-            <input type="text" name="username" placeholder="Username" required>
+    <form action="{{ route('register') }}" method="POST">
+        @csrf <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="Enter your full name" required>
         </div>
 
         <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="Email" required>
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Choose a username" required>
         </div>
 
         <div class="form-group">
             <label>Password</label>
-            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="password" placeholder="Create password" required>
         </div>
 
-        <button type="submit" class="btn-login">Login</button>
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" name="password_confirmation" placeholder="Repeat password" required>
+        </div>
+
+        <button type="submit" class="btn-register">Register Account</button>
     </form>
 
     <div class="footer-text">
-        Don't have an Account? <a href="register.php" style="color: #64748b;">Register</a>
+        Already have an Account? <a href="{{ route('login') }}">Login</a>
     </div>
 
-    <a href="index.php" class="back-home">
-        Back to <strong>Home</strong>
+    <a href="/" class="back-home">
+        Back to 🏠 <strong>Home</strong>
     </a>
 </div>
 
