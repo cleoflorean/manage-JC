@@ -21,7 +21,7 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <label class="form-label">Nama Produk</label>
-                    <input type="text" name="NamaProduk" id="NamaProduk" class="form-control" placeholder="Contoh: Susu UHT" required>
+                    <input type="text" name="NamaProduk" id="NamaProduk" class="form-control" placeholder="" required>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Kategori</label>
@@ -113,18 +113,3 @@
 
 <!-- Link JavaScript External -->
 <script src="{{ asset('js/barang.js') }}"></script>
-```
-
----
-
-## 📂 **Struktur Folder Akhir:**
-```
-public/
-├── css/
-│   └── barang.css    ← File CSS baru
-└── js/
-    └── barang.js     ← File JavaScript baru
-
-resources/
-└── views/
-    └── barang.blade.php ← Sudah diperbaharui (tanpa inline CSS/JS)
