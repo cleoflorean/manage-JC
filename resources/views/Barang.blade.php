@@ -1,4 +1,8 @@
-@extends('layouts.header')
+@extends('layouts.app')
+
+@section('title', 'Barang ')
+
+@section('content')
 
 <!-- Link CSS External -->
 <link rel="stylesheet" href="{{ asset('css/barang.css') }}">
@@ -113,3 +117,4 @@
 
 <!-- Link JavaScript External -->
 <script src="{{ asset('js/barang.js') }}"></script>
+@endsection

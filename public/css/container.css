@@ -1,0 +1,28 @@
+html, body {
+  height: 100%;
+}
+
+.container-fluid {
+  padding-left: 0;
+}
+
+/* row utama */
+.container-fluid > .row {
+  min-height: calc (100vh - 56px);
+}
+
+.container-fluid > .row > .col-lg-3 {
+  padding-left: 0;
+  height: calc(100vh - 56px);
+}
+
+/* Hilangkana paading kiri container sidebar */
+.container-fluid .row .col-lg-3 nav{
+    height: 100%;
+    border-radius: 0;
+}
+
+/* Sidebar full height*/
+.container-fluid  .row .col-lg-9{
+    padding-right: 1rem;
+}

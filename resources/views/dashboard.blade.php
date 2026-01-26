@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+@extends('layouts.app')
+
+@section('title', 'Dashboard | Konveksi Cloteh')
+
+@section('content')
     <style>
         * {
             box-sizing: border-box;
@@ -21,27 +20,9 @@
             justify-content: space-between;
             align-items: center;
         }
-        .sidebar {
-            width: 220px;
-            height: 100vh;
-            background: #343a40;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding-top: 60px;
-        }
-        .sidebar a {
-            display: block;
-            padding: 12px 20px;
-            color: #ddd;
-            text-decoration: none;
-        }
-        .sidebar a:hover {
-            background: #495057;
-            color: white;
-        }
+
         .content {
-            margin-left: 220px;
+            margin-left: 20px;
             padding: 20px;
         }
         .card {
@@ -82,32 +63,13 @@
 </head>
 <body>
 
-<div class="navbar">
-    <div>Dashboard Kasir</div>
-    <div class="user-info">
-        <span>{{ Auth::user()->username ?? 'Guest' }}</span>
-        
-        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-            @csrf
-            <button type="submit" class="logout-btn">Logout</button>
-        </form>
-    </div>
-</div>
-
-<div class="sidebar">
-    <a href="{{ route('dashboard') }}">🏠 Home</a>
-    <a href="{{ route('barang.index') }}">📦 Data Barang</a>
-    <a href="#">📊 Statistik</a>
-    <a href="#">⚙️ Pengaturan</a>
-</div>
-
 <div class="content">
     <h2>Selamat Datang, {{ Auth::user()->username }}! 👋</h2>
 
     <div class="cards">
         <div class="card">
-            <h3>Total User</h3>
-            <p>120</p>
+            <h3>Total Stok</h3>
+            <p>{{ $totalStok }}</p>
         </div>
         <div class="card">
             <h3>Pengunjung</h3>
@@ -126,5 +88,4 @@
     </div>
 </div>
 
-</body>
-</html>
+@endsection

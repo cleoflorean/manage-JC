@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 
 /*
@@ -35,10 +36,7 @@ Route::get('/register', function () {
 // --- DASHBOARD & FITUR ---
 
 // Halaman Dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 // Halaman Manajemen Barang
 Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
 Route::post('/barang/simpan', [BarangController::class, 'store'])->name('barang.store');
