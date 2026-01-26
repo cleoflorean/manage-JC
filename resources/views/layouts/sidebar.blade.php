@@ -1,4 +1,4 @@
-<nav class="navbar-vertical navbar bg-dark navbar-expand-lg">
+<nav class="navbar-vertical navbar navbar-expand-lg">
     <div class="nav-scroller">
         <!-- Brand -->
         <a class="navbar-brand text-white fw-bold px-4 py-3" href="{{ url('dashboard') }}">
@@ -12,7 +12,7 @@
             <li class="nav-item">
                 <a class="nav-link text-white {{ request()->is('dashboard') ? 'active' : '' }}"
                    href="{{ url('/dashboard') }}">
-                    <i class="bi bi-speedometer2 me-2"></i><i class="bi bi-house"></i>
+                    </i><i class="bi bi-house"></i>
                     Dashboard
                 </a>
             </li>
@@ -46,13 +46,13 @@
                 </div>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link text-white {{ request()->is('dashboard') ? 'active' : '' }}"
                    href="{{ url('/dashboard') }}">
                     <i class="bi bi-speedometer2 me-2"></i>
                     Laporan
                 </a>
-            </li>
+            </li> --}} // belum pasti
 
             <!-- Divider -->
             <li class="nav-item my-4">
@@ -80,7 +80,7 @@
   width: 260px;
   min-height: 100vh;
   position: fixed;
-  background-color: #212529;
+  background-color: #5dce8e;
   overflow-y: auto;
   margin-left: 0;
   transition: margin 0.3s ease;
