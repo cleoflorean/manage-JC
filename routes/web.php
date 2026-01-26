@@ -13,10 +13,11 @@ use App\Http\Controllers\AuthController;
 
 // --- AUTHENTICATION (LOGIN & LOGOUT) ---
 
-// Halaman Utama / Tampilan Login
-Route::get('/', function () {
-    return view('login');
-})->name('login');
+Route::middleware('guest')->group(function () {
+    Route::get('/', function () {
+        return view('login');
+    })->name('login');
+});
 
 // Proses Login (Mengirim data dari form ke Controller)
 Route::post('/login', [AuthController::class, 'login'])->name('login.proses');
@@ -25,20 +26,21 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.proses');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-// --- REGISTRATION ---
+// --- DASHBOARD & FITUR (PROTECTED) ---
 
-// Halaman Register
-Route::get('/register', function () {
-    return view('register');
-})->name('register');
+Route::middleware('auth')->group(function () {
+    
+    // Halaman Dashboard Utama
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // Manajemen Barang (Barang Masuk)
+    Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
+    Route::post('/barang/simpan', [BarangController::class, 'store'])->name('barang.store');
+    Route::put('/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
+    Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 
-// --- DASHBOARD & FITUR ---
-
-// Halaman Dashboard
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-// Halaman Manajemen Barang
-Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
-Route::post('/barang/simpan', [BarangController::class, 'store'])->name('barang.store');
-Route::put('/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
-Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
+    // Manajemen Barang Keluar (Produk)
+    Route::get('/produk', [BarangController::class, 'keluarIndex'])->name('barang.keluar.index');
+    Route::post('/produk/simpan', [BarangController::class, 'keluarStore'])->name('barang.keluar.store');
+    
+});
