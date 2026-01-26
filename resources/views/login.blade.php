@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kasir User Login</title>
+    <title>Kasir Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -26,19 +27,6 @@
             text-align: center;
         }
 
-        .header-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 30px;
-            gap: 10px;
-        }
-
-        .header-logo img {
-            width: 40px;
-            height: auto;
-        }
-
         .header-logo h2 {
             font-size: 24px;
             color: #334155;
@@ -55,6 +43,7 @@
         .form-group {
             text-align: left;
             margin-bottom: 20px;
+            position: relative; /* Penting untuk posisi ikon mata */
         }
 
         .form-group label {
@@ -69,26 +58,20 @@
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #e2e8f0;
-            border-radius: 25px; /* Membuat input lonjong */
+            border-radius: 25px;
             box-sizing: border-box;
             font-size: 14px;
             outline: none;
             transition: 0.3s;
         }
 
-        .form-group input:focus {
-            border-color: #10b981;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-        }
-
-        .forgot-password {
-            display: block;
-            text-align: right;
-            font-size: 12px;
+        /* Styling Ikon Mata */
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 38px; /* Menyesuaikan posisi di tengah input */
+            cursor: pointer;
             color: #64748b;
-            text-decoration: none;
-            margin-top: -10px;
-            margin-bottom: 25px;
         }
 
         .btn-login {
@@ -108,27 +91,22 @@
             background-color: #138496;
         }
 
-        .footer-text {
-            margin-top: 25px;
-            font-size: 14px;
-            color: #64748b;
-        }
-
-        .footer-text a {
-            color: #64748b;
-            text-decoration: none;
-            font-weight: 600;
+        .alert-error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            text-align: center;
         }
 
         .back-home {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: block;
             margin-top: 15px;
             font-size: 14px;
             color: #64748b;
             text-decoration: none;
-            gap: 5px;
         }
     </style>
 </head>
@@ -136,38 +114,49 @@
 
 <div class="login-card">
     <div class="header-logo">
-        <h2>Kasir User Login</h2>
+        <h2>Kasir Login</h2>
     </div>
     
     <hr>
 
-<form method="POST" action="dashboard.blade.php">
-        <div class="form-group">
-            <label>Username</label>
-            <input type="text" name="username" placeholder="Username" required>
+    @if ($errors->has('loginError'))
+        <div class="alert-error">
+            {{ $errors->first('loginError') }}
         </div>
+    @endif
 
+    <form method="POST" action="{{ route('login.proses') }}">
+        @csrf 
         <div class="form-group">
             <label>Email</label>
-            <input type="email" name="email" placeholder="Email" required>
+            <input type="email" name="email" placeholder="Email" required value="{{ old('email') }}">
         </div>
 
         <div class="form-group">
             <label>Password</label>
-            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="password" id="password" placeholder="Password" required>
+            <i class="fa-solid fa-eye toggle-password" id="eyeIcon"></i>
         </div>
 
         <button type="submit" class="btn-login">Login</button>
     </form>
 
-    <div class="footer-text">
-        Don't have an Account? <a href="register.php" style="color: #64748b;">Register</a>
-    </div>
-
-    <a href="index.php" class="back-home">
-        Back to <strong>Home</strong>
-    </a>
+    <a href="/" class="back-home">Back to <strong>Home</strong></a>
 </div>
+
+<script>
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+
+    eyeIcon.addEventListener('click', function () {
+        // Toggle tipe input antara password dan text
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        // Ganti ikon mata (buka/tutup)
+        this.classList.toggle('fa-eye-slash');
+    });
+</script>
 
 </body>
 </html>

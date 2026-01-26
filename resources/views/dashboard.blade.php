@@ -1,8 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <style>
         * {
@@ -60,35 +60,49 @@
             margin: 0;
             color: #333;
         }
-        .logout {
+        /* Style untuk tombol logout agar tidak terlihat seperti form biasa */
+        .logout-btn {
+            background: none;
+            border: none;
             color: white;
-            text-decoration: none;
             font-weight: bold;
+            cursor: pointer;
+            padding: 0;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        .logout-btn:hover {
+            text-decoration: underline;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
         }
     </style>
 </head>
 <body>
 
-<!-- Navbar -->
 <div class="navbar">
-    <div>Dashboard</div>
-    <div>
-        {{ Auth::user()->name ?? 'Guest' }}
-        <a href="logout.php" class="logout">Logout</a>
+    <div>Dashboard Kasir</div>
+    <div class="user-info">
+        <span>{{ Auth::user()->username ?? 'Guest' }}</span>
+        
+        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+            @csrf
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
     </div>
 </div>
 
-<!-- Sidebar -->
 <div class="sidebar">
-    <a href="#">🏠 Home</a>
-    <a href="#">👤 Profile</a>
+    <a href="{{ route('dashboard') }}">🏠 Home</a>
+    <a href="{{ route('barang.index') }}">📦 Data Barang</a>
     <a href="#">📊 Statistik</a>
     <a href="#">⚙️ Pengaturan</a>
 </div>
 
-<!-- Content -->
 <div class="content">
-    <h2>Selamat Datang 👋</h2>
+    <h2>Selamat Datang, {{ Auth::user()->username }}! 👋</h2>
 
     <div class="cards">
         <div class="card">
@@ -105,12 +119,12 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card" style="margin-top: 20px;">
         <h3>Informasi</h3>
-        <p>Ini adalah halaman dashboard utama.  
-        Silakan pilih menu di sidebar.</p>
+        <p>Ini adalah halaman dashboard utama aplikasi kasir kamu. 
+        Anda masuk sebagai <strong>{{ Auth::user()->email }}</strong>.</p>
     </div>
 </div>
 
 </body>
-</html> 
+</html>
