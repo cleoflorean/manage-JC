@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="{{ asset('css/barang.css') }}">
 
 <div class="container main-container">
-    <h2 class="card-title">📦 Kelola Produk Kami</h2>
+    <h2 class="card-title">Kelola Produk</h2>
 
     <!-- Alert Success -->
     @if(session('success'))

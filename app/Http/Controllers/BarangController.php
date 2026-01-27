@@ -12,7 +12,6 @@ class BarangController extends Controller
         return view('barang', compact('barang'));
     }
 
-    // Ini fungsi yang dicari oleh Route::post('/barang/simpan', [BarangController::class, 'store'])
     public function store(Request $request) 
     {
         $request->validate([
@@ -34,7 +33,6 @@ class BarangController extends Controller
         return redirect('/barang')->with('success', 'Barang Berhasil Ditambahkan');
     }
 
-    // Method untuk UPDATE barang
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -57,12 +55,41 @@ class BarangController extends Controller
         return redirect('/barang')->with('success', 'Barang Berhasil Diupdate');
     }
 
-    // Method untuk DELETE barang
     public function destroy($id)
     {
         $barang = barang::findOrFail($id);
         $barang->delete();
 
         return redirect('/barang')->with('success', 'Barang Berhasil Dihapus');
+    }
+
+    /* --- FITUR BARANG KELUAR (PRODUK) --- */
+
+    public function keluarIndex()
+    {
+        $barang = barang::all(); 
+        return view('produk', compact('barang'));
+    }
+
+    public function keluarStore(Request $request)
+    {
+        $request->validate([
+            'barang_id' => 'required|exists:barang,id', 
+            'jumlah'    => 'required|integer|min:1',
+            'tujuan'    => 'required|string|max:255'
+        ]);
+
+        $item = barang::findOrFail($request->barang_id);
+
+        // Cek kecukupan stok sebelum dikurangi
+        if ($item->Stok < $request->jumlah) {
+            return back()->with('error', 'Gagal! Stok ' . $item->NamaProduk . ' tidak mencukupi.');
+        }
+
+        // Sinkronisasi Database: Update stok
+        $item->Stok = $item->Stok - $request->jumlah;
+        $item->save(); // Menggunakan save() untuk memastikan perubahan tersimpan
+
+        return redirect('/produk')->with('success', 'Transaksi Berhasil: Stok ' . $item->NamaProduk . ' telah dikurangi.');
     }
 }
