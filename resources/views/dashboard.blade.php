@@ -27,7 +27,7 @@
 
     .content {
         padding: 40px 30px;
-        margin-top: 100px
+        margin-top: 100px;
         max-width: 1200px;
         margin-left: auto;
         margin-right: auto;
@@ -39,23 +39,40 @@
 
     .cards-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 24px;
         margin-bottom: 30px;
     }
 
     .stat-card {
-        background: var(--white);
+        background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(250,252,255,1) 100%);
         padding: 24px;
         border-radius: 16px;
-        border: 1px solid #e2e8f0;
-        transition: all 0.3s ease;
+        border: 1px solid rgba(226,232,240,0.8);
+        transition: all 0.35s cubic-bezier(.2,.9,.3,1);
+        position: relative;
+        overflow: hidden;
     }
 
+    .stat-card::after {
+        content: '';
+        position: absolute;
+        right: -40px;
+        top: -40px;
+        width: 120px;
+        height: 120px;
+        background: rgba(59,130,246,0.06);
+        border-radius: 48px;
+        transform: rotate(25deg);
+        z-index: 0;
+    }
+
+    .stat-card * { position: relative; z-index: 1; }
+
     .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.05);
-        border-color: var(--primary);
+        transform: translateY(-6px);
+        box-shadow: 0 18px 30px -10px rgba(16,24,40,0.12);
+        border-color: rgba(59,130,246,0.25);
     }
 
     .card-header-flex { display: flex; justify-content: space-between; align-items: flex-start; }
@@ -91,7 +108,7 @@
 
 <div class="content">
     <div class="welcome-section">
-        <h2>Selamat Datang, {{ Auth::user()->username }}!</h2>
+        <h2>Selamat Datang, {{ optional(Auth::user())->username ?? 'Admin' }}!</h2>
         <p>Pantau stok konveksi Anda hari ini.</p>
     </div>
 
@@ -115,7 +132,7 @@
                 </div>
             </div>
             <div class="value">{{ number_format($barangMasuk, 0, ',', '.') }}</div>
-            <div class="desc">Total barang masuk minggu ini</div>
+            <div class="desc">Total barang masuk hari ini</div>
         </div>
 
         <div class="stat-card">
@@ -125,8 +142,19 @@
                     <i class="fa-solid fa-arrow-up-long"></i>
                 </div>
             </div>
-            <div class="value">{{ $barangKeluar }}</div>
+            <div class="value">{{ number_format($barangKeluar, 0, ',', '.') }}</div>
             <div class="desc">Transaksi keluar hari ini</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="card-header-flex">
+                <h3>Produk Stok Rendah</h3>
+                <div class="icon-box" style="background: linear-gradient(180deg,#fff1f2,#fee2e2); color:#dc2626;">
+                    <i class="fa-solid fa-exclamation"></i>
+                </div>
+            </div>
+            <div class="value">{{ number_format($produkLowStock, 0, ',', '.') }}</div>
+            <div class="desc">Produk dengan stok ≤ 10</div>
         </div>
     </div>
 

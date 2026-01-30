@@ -42,5 +42,12 @@ Route::middleware('auth')->group(function () {
     // Manajemen Barang Keluar (Produk)
     Route::get('/produk', [BarangController::class, 'keluarIndex'])->name('barang.keluar.index');
     Route::post('/produk/simpan', [BarangController::class, 'keluarStore'])->name('barang.keluar.store');
-    
+
+    // Laporan Arus Stok
+    Route::get('/laporan', [App\Http\Controllers\LaporanController::class, 'index'])->name('laporan.index');
+
+    // Riwayat Barang Keluar (History + CSV Export)
+    Route::get('/produk/riwayat', [App\Http\Controllers\BarangController::class, 'keluarHistory'])->name('barang.keluar.history');
+    Route::get('/produk/riwayat/export', [App\Http\Controllers\BarangController::class, 'keluarExport'])->name('barang.keluar.export');
+
 });

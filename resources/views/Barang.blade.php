@@ -19,23 +19,35 @@
     @endif
 
     <div class="custom-card">
-        <h5 class="mb-4" style="color: #17a2b8;" id="form-title">Tambah Barang Baru</h5>
+        <h5 class="mb-4" style="color: #3b82f6;" id="form-title">Tambah Barang Baru</h5>
         <form action="{{ route('barang.store') }}" method="POST" id="barangForm" enctype="multipart/form-data">
             @csrf
+
+            {{-- Tampilkan error validasi jika ada --}}
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="row g-3">
                 <div class="col-md-6">
                     <label class="form-label">Nama Produk</label>
-                    <input type="text" name="NamaProduk" id="NamaProduk" class="form-control" placeholder="" required>
+                    <input type="text" name="NamaProduk" id="NamaProduk" class="form-control" placeholder="Masukkan nama produk" value="{{ old('NamaProduk') }}" required>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Kategori</label>
                     <select name="Kategori" id="Kategori" class="form-select" required>
-                        <option value="" disabled selected>Pilih Kategori</option>
-                        <option value="makanan">Makanan</option>
-                        <option value="minuman">Minuman</option>
-                        <option value="sembako">Sembako</option>
-                        <option value="frozen food">Frozen Food</option>
-                        <option value="susu dan olahan">Produk Susu dan Olahan</option>
+                        <option value="" disabled {{ old('Kategori') ? '' : 'selected' }}>Pilih Kategori</option>
+                        <option value="makanan" {{ old('Kategori')=='makanan' ? 'selected' : '' }}>Makanan</option>
+                        <option value="minuman" {{ old('Kategori')=='minuman' ? 'selected' : '' }}>Minuman</option>
+                        <option value="sembako" {{ old('Kategori')=='sembako' ? 'selected' : '' }}>Sembako</option>
+                        <option value="frozen food" {{ old('Kategori')=='frozen food' ? 'selected' : '' }}>Frozen Food</option>
+                        <option value="susu dan olahan" {{ old('Kategori')=='susu dan olahan' ? 'selected' : '' }}>Produk Susu dan Olahan</option>
                     </select>
                 </div>
                 <div class="col-md-4">
@@ -51,11 +63,11 @@
                     <input type="number" name="Stok" id="Stok" class="form-control" placeholder="0" required>
                 </div>
                 <div class="col-12 mt-4 text-end">
-                    <button type="button" class="btn btn-secondary me-2" id="btnBatal" style="display:none;" onclick="batalEdit()">
+                    <button type="button" class="btn btn-outline-secondary me-2" id="btnBatal" style="display:none;" onclick="batalEdit()">
                         Batal
                     </button>
                     <button type="submit" class="btn btn-custom-primary" id="btnSubmit">
-                        Simpan Produk
+                        <i class="fa-solid fa-floppy-disk me-2"></i> Tambah Produk
                     </button>
                 </div>
             </div>

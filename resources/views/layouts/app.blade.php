@@ -32,18 +32,22 @@
         }
 
         /* Sinkronisasi Header/Topbar agar serasi */
+        /* NOTE: Avoid forcing a global white background and hard-coded white text color
+           because topbar and sidebar define their own themes. Use per-component styles
+           in the partials and keep global rules neutral to prevent the brand becoming
+           invisible on some pages. */
         .navbar {
-            background-color: #ffffff !important; /* Mengubah toska menjadi putih bersih */
             border-bottom: 1px solid #e2e8f0 !important; /* Garis pemisah tipis */
             padding: 0.75rem 1.5rem !important;
             box-shadow: none !important;
+            background-color: transparent !important;
         }
 
-        /* Mengubah warna teks brand/admin di navbar agar tidak hilang saat bg jadi putih */
+        /* Use inherited text color so brand and links follow the partial's theme */
         .navbar .navbar-brand, 
         .navbar .nav-link,
         .navbar .dropdown-toggle {
-            color: #ffffff !important; 
+            color: inherit !important; 
             font-weight: 600;   
         }
 
