@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/summary', [DashboardController::class, 'summary'])->name('dashboard.summary');
 
     // Manajemen Barang (Barang Masuk)
-    Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
+    Route::get('/barang', [BarangController::class, 'index'])->name('barang');
     Route::post('/barang/simpan', [BarangController::class, 'store'])->name('barang.store');
     // Catat Barang Masuk (modal/form)
     Route::post('/barang/masuk', [BarangController::class, 'masukStore'])->name('barang.masuk.store');
