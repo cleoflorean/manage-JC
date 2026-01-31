@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\MoBels\barang;
+use App\Models\barang;
 use App\Models\BarangKeluar;
 use App\Models\BarangMasuk; // catatan barang masuk
 use Carbon\Carbon;
