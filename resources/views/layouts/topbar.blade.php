@@ -1,31 +1,19 @@
 <nav class="navbar navbar-expand navbar-dark border-bottom fixed-top" style="height: 70px; background-color: #0f172a; border-color: rgba(255,255,255,0.1) !important; z-index: 1030;">
     <div class="container-fluid px-4">
         
-        <a class="navbar-brand d-flex align-items-center fw-bold" href="#">
+        <a class="navbar-brand d-flex align-items-center fw-bold text-white" style="text-decoration: none; color:#ffffff !important;">
             <i class="fa-solid fa-box-open text-primary me-2"></i> 
             Inventory
         </a>
 
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle d-flex align-items-center text-white fw-semibold" 
-                       href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <li class="nav-item">
+                    <span class="nav-link d-flex align-items-center text-white fw-semibold">
                         <img src="https://ui-avatars.com/api/?name={{ urlencode(optional(Auth::user())->username ?? 'Admin') }}&background=3b82f6&color=fff" 
                              alt="User" class="rounded-circle me-2" width="32">
                         Admin {{ optional(Auth::user())->username ?? 'Admin' }}
-                    </a>
-                    
-                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 animate slideIn" style="border-radius: 12px; min-width: 160px;">
-                        <li>
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="dropdown-item text-danger py-2 fw-bold" onclick="return confirm('Yakin ingin keluar?')">
-                                    <i class="fa-solid fa-power-off me-2"></i> Logout
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
+                    </span>
                 </li>
             </ul>
         </div>
