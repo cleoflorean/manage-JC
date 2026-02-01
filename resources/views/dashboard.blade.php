@@ -109,7 +109,7 @@
 <div class="content">
     <div class="welcome-section">
         <h2>Selamat Datang, {{ optional(Auth::user())->username ?? 'Admin' }}!</h2>
-        <p>Pantau stok konveksi Anda hari ini.</p>
+        <p>Pantau stok produk Anda hari ini.</p>
     </div>
 
     <div class="cards-grid">
